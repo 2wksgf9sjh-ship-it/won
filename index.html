@@ -4,125 +4,430 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#111111">
-<title>CHARACTER PHONE</title>
+<title>CHARACTER PHONE - 양정원</title>
 <style>
-:root{--blue:#087df1;--paper:#f5f5f7;--ink:#171719;--muted:#8b8b91}
-*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:18px;background:radial-gradient(ellipse at 50% 10%,#e7eaf1,#aeb8c8 58%,#778397);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Apple SD Gothic Neo",sans-serif;color:var(--ink)}
+:root{--blue:#007aff;--paper:#f2f2f7;--ink:#000000;--muted:#8e8e93}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;padding:12px;background:radial-gradient(ellipse at 50% 10%,#1e293b,#0f172a 60%,#020617);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Apple SD Gothic Neo",sans-serif;color:var(--ink)}
 button,input,textarea{font:inherit}button{cursor:pointer}
-.setup{width:min(430px,100%);background:#fff;border-radius:28px;padding:27px;box-shadow:0 22px 65px #24324a45}
-.logo{font-size:12px;letter-spacing:3px;font-weight:800;color:#85858c}.setup h1{font-size:26px;margin:10px 0 8px}.setup p{font-size:14px;line-height:1.6;color:#777;margin:0 0 20px}
-label{display:block;font-size:13px;font-weight:700;margin:16px 0 7px}
-input,textarea{width:100%;border:1px solid #dddde3;border-radius:12px;padding:13px;background:#fff;outline:none;font-size:15px}
-input:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px #087df11a}
-.primary{width:100%;border:0;border-radius:13px;background:#111;color:#fff;padding:14px;font-weight:700;margin-top:19px}
-.smallnote{font-size:11px;color:#999;margin-top:12px;line-height:1.5}
-.phone{display:none;width:min(390px,95vw);height:min(830px,calc(100dvh - 24px));min-height:620px;background:#101010;border:7px solid #171719;border-radius:53px;padding:9px;box-shadow:0 26px 75px #17223875;position:relative}
-.screen{height:100%;border-radius:38px;overflow:hidden;position:relative;background:#f6f6f8}
-.dynamic{position:absolute;z-index:12;top:8px;left:50%;transform:translateX(-50%);width:116px;height:31px;border-radius:20px;background:#050505}
-.status{position:absolute;z-index:11;top:0;left:0;right:0;height:39px;padding:11px 23px 0;display:flex;justify-content:space-between;font-size:12px;font-weight:750;pointer-events:none;color:inherit}
+
+.setup{width:min(420px,100%);background:#fff;border-radius:28px;padding:28px;box-shadow:0 22px 65px #00000050;text-align:center}
+.logo{font-size:12px;letter-spacing:3px;font-weight:800;color:#85858c;margin-bottom:8px}
+.setup h1{font-size:24px;margin:0 0 10px}
+.setup p{font-size:14px;line-height:1.5;color:#666;margin:0 0 20px}
+.primary{width:100%;border:0;border-radius:14px;background:#007aff;color:#fff;padding:15px;font-weight:700;font-size:16px;box-shadow:0 4px 12px #007aff40}
+
+.phone{display:none;width:min(390px,95vw);height:min(830px,calc(100dvh - 20px));min-height:620px;background:#000;border:9px solid #1c1c1e;border-radius:54px;padding:8px;box-shadow:0 30px 90px #000000b0;position:relative}
+.screen{height:100%;border-radius:44px;overflow:hidden;position:relative;background:#f2f2f7}
+
+.dynamic{position:absolute;z-index:20;top:9px;left:50%;transform:translateX(-50%);width:115px;height:30px;border-radius:20px;background:#000;display:flex;align-items:center;justify-content:flex-end;padding-right:10px}
+.dynamic-cam{width:10px;height:10px;border-radius:50%;background:#1a1a1a}
+.status{position:absolute;z-index:18;top:0;left:0;right:0;height:44px;padding:12px 26px 0;display:flex;justify-content:space-between;font-size:14px;font-weight:600;color:#fff;pointer-events:none}
+
 .view{position:absolute;inset:0;display:none}.view.active{display:block}
-.lock{color:#fff;text-align:center;background:linear-gradient(155deg,#24374f 0%,#647c91 48%,#d1b7a4 100%);background-size:cover}
-.lock:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0002,transparent 40%,#0003)}
-.lockdate{position:relative;padding-top:103px;font-size:17px;text-shadow:0 2px 9px #0005}
-.locktime{position:relative;font-size:78px;line-height:1.13;font-weight:300;letter-spacing:-4px;text-shadow:0 2px 12px #0004}
-.lockmessage{position:relative;margin-top:16px;font-size:14px;text-shadow:0 2px 8px #0008}
-.lockbottom{position:absolute;bottom:35px;left:0;right:0;padding:0 31px}
-.quick{display:flex;justify-content:space-between;margin-bottom:25px}.quick button{width:45px;height:45px;border:0;border-radius:50%;background:#ffffff35;color:white;font-size:21px;backdrop-filter:blur(12px)}
-.swipe{font-size:12px;text-shadow:0 2px 8px #000;animation:fade 1.7s infinite}@keyframes fade{50%{opacity:.45}}
-.pass{background:#f5f5f7;text-align:center;padding:102px 24px 24px}
-.pass h2{font-size:21px;margin:0 0 8px}.pass p{font-size:13px;color:#777;margin:0}
-.dots{display:flex;justify-content:center;gap:14px;margin:28px 0 30px}.dot{width:11px;height:11px;border:1.4px solid #555;border-radius:50%}.dot.on{background:#222}
-.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:11px 19px;max-width:270px;margin:auto}
-.key{height:61px;border:0;border-radius:50%;background:#dedee3;color:#171719;font-size:25px;font-weight:400}.key:active{background:#c5c5cb}.key.empty{visibility:hidden}
-.passfoot{display:flex;justify-content:space-between;max-width:270px;margin:18px auto 0;font-size:12px;color:#555}.linkbtn{border:0;background:none;color:var(--blue);padding:0}
-.home{padding:67px 19px 30px;background:linear-gradient(145deg,#b8cce0,#e5d5d1 58%,#9fadc2)}
-.greeting{color:#fff;text-shadow:0 1px 8px #0005;font-size:15px;margin:9px 4px 25px}
-.apps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px 10px}
-.app{border:0;background:none;color:white;text-shadow:0 1px 4px #333;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;min-width:0}
-.appicon{width:55px;height:55px;border-radius:14px;display:grid;place-items:center;font-size:28px;box-shadow:0 4px 12px #0002;text-shadow:none}
-.kakao{background:#fee500;color:#231f20}.photos{background:conic-gradient(#ff6f91,#ffd36b,#70d6a5,#70b9f0,#ad8af2,#ff6f91)}.messages{background:#35c86c}.phoneapp{background:#35c86c}.notes{background:#fff;color:#d9b333}.settings{background:#d9dce2;color:#555}
-.dock{position:absolute;bottom:20px;left:14px;right:14px;padding:11px 12px;border-radius:23px;background:#ffffff55;backdrop-filter:blur(18px);display:flex;justify-content:space-around}
-.dock .appicon{width:49px;height:49px}
-.appview{background:#fff;padding-top:42px}
-.appbar{height:53px;border-bottom:1px solid #ededf0;display:flex;align-items:center;padding:0 15px;position:relative}
-.back{border:0;background:none;color:var(--blue);font-size:16px;padding:8px 0}.apptitle{position:absolute;left:50%;transform:translateX(-50%);font-weight:700;font-size:16px}
-.content{height:calc(100% - 95px);overflow:auto}
-.rows{padding:0 15px}.chatrow{width:100%;display:flex;align-items:center;gap:12px;padding:14px 0;border:0;border-bottom:1px solid #eee;background:#fff;text-align:left}
-.avatar{width:46px;height:46px;border-radius:50%;background:#e9e9ed;display:grid;place-items:center;font-size:21px;flex:none}
-.chatmeta{flex:1;min-width:0}.chatmeta b{font-size:15px;display:block}.chatmeta span{font-size:12px;color:#888;display:block;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.time{font-size:10px;color:#999}
-.chatroom{height:100%;display:flex;flex-direction:column;background:#bacecf}
-.chatroomtop{height:47px;background:#f8f8f8;display:grid;place-items:center;font-weight:700}
+
+.lock{color:#fff;text-align:center;background:linear-gradient(180deg,#0f172a 0%,#1e293b 50%,#334155 100%);background-size:cover}
+.lockdate{position:relative;padding-top:100px;font-size:19px;font-weight:500;text-shadow:0 1px 8px #0006}
+.locktime{position:relative;font-size:82px;line-height:1.05;font-weight:200;letter-spacing:-3px;text-shadow:0 2px 12px #0005}
+.lockmessage{position:relative;margin-top:18px;font-size:15px;font-weight:500;background:#ffffff20;backdrop-filter:blur(12px);display:inline-block;padding:7px 18px;border-radius:20px;box-shadow:0 2px 10px #0003;border:0.5px solid #ffffff30}
+.lockbottom{position:absolute;bottom:35px;left:0;right:0;padding:0 30px}
+.quick{display:flex;justify-content:space-between;margin-bottom:28px}
+.quick button{width:46px;height:46px;border:0;border-radius:50%;background:#ffffff30;color:#fff;font-size:20px;backdrop-filter:blur(15px);display:grid;place-items:center}
+.swipe{font-size:13px;opacity:0.8;animation:fade 1.8s infinite}@keyframes fade{50%{opacity:.3}}
+
+.pass{background:#e5e5ea;text-align:center;padding:100px 24px 24px}
+.pass h2{font-size:22px;margin:0 0 6px;font-weight:600}
+.pass p{font-size:13px;color:#666;margin:0}
+.dots{display:flex;justify-content:center;gap:16px;margin:30px 0 32px}
+.dot{width:12px;height:12px;border:1.5px solid #333;border-radius:50%}
+.dot.on{background:#000}
+.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 20px;max-width:270px;margin:auto}
+.key{height:64px;border:0;border-radius:50%;background:#fff;color:#000;font-size:26px;font-weight:400;box-shadow:0 1px 3px #0001}.key:active{background:#d1d1d6}.key.empty{visibility:hidden}
+.passfoot{display:flex;justify-content:space-between;max-width:270px;margin:20px auto 0;font-size:13px;color:#555}
+
+.home{padding:75px 22px 30px;background:linear-gradient(160deg,#111827 0%,#374151 50%,#6b7280 100%)}
+.greeting{color:#fff;text-shadow:0 2px 10px #0008;font-size:16px;margin:0 4px 28px;font-weight:600}
+.apps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px 14px}
+.app{border:0;background:none;color:#fff;text-shadow:0 1px 3px #0008;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;min-width:0;font-weight:500}
+.appicon{width:58px;height:58px;border-radius:15px;display:grid;place-items:center;font-size:28px;box-shadow:0 4px 14px #0004;text-shadow:none;position:relative}
+
+.icon-kakao{background:#fee500;color:#3c1e1e;font-weight:bold;font-size:20px}
+.icon-insta{background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);color:#fff}
+.icon-phone{background:linear-gradient(180deg,#34c759,#28a745);color:#fff;font-size:26px}
+.icon-messages{background:linear-gradient(180deg,#34c759,#24b046);color:#fff;font-size:26px}
+.icon-notes{background:#ffffff;color:#f59e0b;font-size:26px}
+
+.dock{position:absolute;bottom:18px;left:14px;right:14px;padding:12px 16px;border-radius:30px;background:#ffffff35;backdrop-filter:blur(25px);display:flex;justify-content:space-around}
+.dock .appicon{width:52px;height:52px}
+
+.appview{background:#fff;padding-top:44px}
+.appbar{height:50px;border-bottom:0.5px solid #c6c6c8;display:flex;align-items:center;padding:0 16px;position:relative;background:#f9f9fb}
+.back{border:0;background:none;color:var(--blue);font-size:16px;font-weight:500;padding:0;display:flex;align-items:center;gap:3px}
+.apptitle{position:absolute;left:50%;transform:translateX(-50%);font-weight:600;font-size:16px}
+.content{height:calc(100% - 94px);overflow:auto;background:#fff}
+
+.rows{padding:0 12px}
+.chatrow{width:100%;display:flex;align-items:center;gap:12px;padding:12px 0;border:0;border-bottom:0.5px solid #e5e5ea;background:#fff;text-align:left}
+.avatar{width:48px;height:48px;border-radius:18px;background:#e5e5ea;display:grid;place-items:center;font-size:22px;flex:none}
+.chatmeta{flex:1;min-width:0}.chatmeta b{font-size:15px;display:block;margin-bottom:3px}.chatmeta span{font-size:13px;color:#8e8e93;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.time{font-size:11px;color:#8e8e93}
+.chatroom{height:100%;display:flex;flex-direction:column;background:#bacee0}
+.chatroomtop{height:44px;background:#bacee0;display:grid;place-items:center;font-weight:600;font-size:15px;border-bottom:0.5px solid #a2b8cc}
 .bubbles{flex:1;overflow:auto;padding:14px 12px;display:flex;flex-direction:column;gap:10px}
-.day{text-align:center;color:#fff;font-size:11px;margin:7px}
-.bubble{max-width:80%;padding:10px 12px;border-radius:14px;background:#fff;font-size:14px;line-height:1.45;align-self:flex-start;box-shadow:0 1px 2px #0001;overflow-wrap:anywhere}
+.bubble{max-width:75%;padding:9px 13px;border-radius:16px;background:#fff;font-size:14px;line-height:1.4;align-self:flex-start;box-shadow:0 1px 2px #0001;word-break:break-word}
 .bubble.me{background:#fee500;align-self:flex-end}
-.composer{height:43px;background:#f7f7f7;border-top:1px solid #ddd}
-.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}.tile{aspect-ratio:1;display:grid;place-items:center;font-size:36px;background:linear-gradient(135deg,#d9c5bd,#899db0);border:0}.tile:nth-child(3n+2){background:linear-gradient(135deg,#b9c8d8,#e8d4bc)}.tile:nth-child(3n){background:linear-gradient(135deg,#d8c5df,#9cb6b1)}
-.caption{padding:13px;font-size:12px;color:#777}
-.note{padding:22px;line-height:1.8;font-size:15px}.note h3{margin-top:0}
-.callrow{padding:17px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;font-size:14px}
-.homebar{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);height:4px;width:125px;background:#111;border-radius:5px;z-index:15;cursor:pointer}
-.toast{display:none;position:absolute;z-index:30;bottom:68px;left:50%;transform:translateX(-50%);background:#222;color:#fff;padding:10px 15px;border-radius:18px;font-size:12px;white-space:nowrap}
-.editor{position:absolute;inset:0;background:#fff;z-index:20;display:none;padding:48px 20px 24px;overflow:auto}.editor h3{margin:0 0 6px}.editor p{font-size:12px;color:#777;line-height:1.5}.editor textarea{min-height:90px;resize:vertical;margin-top:8px}.editor .primary{margin-top:12px}
-@media(max-height:670px){.phone{height:97dvh;min-height:0}.lockdate{padding-top:76px}.pass{padding-top:73px}.key{height:53px}}
+.composer{padding:8px 10px;background:#eee;display:flex;gap:8px;align-items:center}
+.composer input{flex:1;border:1px solid #ddd;border-radius:20px;padding:8px 14px;font-size:14px;background:#fff;outline:none}
+.composer button{border:0;background:#fee500;color:#000;font-weight:600;border-radius:16px;padding:8px 14px;font-size:13px}
+
+.insta-profile{padding:16px}
+.insta-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.insta-pfp{width:77px;height:77px;border-radius:50%;background:#e5e5ea;overflow:hidden;box-shadow:0 2px 8px #0002;border:1px solid #dbdbdb}
+.insta-pfp img{width:100%;height:100%;object-fit:cover}
+.insta-counts{display:flex;gap:18px;text-align:center;flex:1;justify-content:space-around;padding-left:10px}
+.insta-counts div b{display:block;font-size:16px;font-weight:700}.insta-counts div span{font-size:12px;color:#666}
+.insta-bio{font-size:13px;line-height:1.45;margin-bottom:16px}
+.insta-bio b{font-size:14px}
+.insta-tabs{display:flex;border-top:1px solid #dbdbdb;border-bottom:1px solid #dbdbdb}
+.insta-tab{flex:1;text-align:center;padding:10px 0;font-size:20px;color:#000;border-bottom:2px solid #000}
+.insta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:#fff;padding-top:2px}
+.insta-post{aspect-ratio:1;background:#e5e5ea;overflow:hidden;position:relative;cursor:pointer}
+.insta-post img{width:100%;height:100%;object-fit:cover;display:block}
+
+.callrow{padding:14px 18px;border-bottom:0.5px solid #e5e5ea;display:flex;justify-content:space-between;align-items:center}
+.callrow .name{font-size:15px;font-weight:600}.callrow .sub{font-size:12px;color:#8e8e93;margin-top:2px}
+.callrow .tag{font-size:12px;color:#8e8e93}
+.missed{color:#ff3b30 !important}
+
+.homebar{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);height:5px;width:130px;background:#000;border-radius:10px;z-index:30;cursor:pointer}
+.toast{display:none;position:absolute;z-index:40;bottom:70px;left:50%;transform:translateX(-50%);background:#2c2c2e;color:#fff;padding:9px 16px;border-radius:20px;font-size:12px;box-shadow:0 4px 12px #0004}
 </style>
 </head>
 <body>
+
 <section class="setup" id="setup">
  <div class="logo">CHARACTER PHONE</div>
- <h1>누구의 휴대폰을 열어볼까?</h1>
- <p>캐릭터 이름과 암호를 설정하면 가상의 아이폰이 열립니다. 아래 정보는 이 브라우저 안에서만 사용돼요.</p>
- <label for="name">캐릭터 이름</label><input id="name" maxlength="24" placeholder="예: 박성훈">
- <label for="code">잠금 암호 (숫자 4~6자리)</label><input id="code" inputmode="numeric" maxlength="6" value="1234">
- <label for="wall">잠금 화면 문구</label><input id="wall" maxlength="45" placeholder="예: 오늘도 좋은 하루">
+ <h1>양정원의 iPhone</h1>
+ <p>21살 대학교 과대 양정원의 스마트폰입니다.<br>비밀번호는 <b>0209</b> 입니다.</p>
  <button class="primary" onclick="begin()">휴대폰 열기</button>
- <div class="smallnote">기본 암호는 1234입니다. 카카오톡·사진·통화 기록은 예시용 창작 데이터입니다.</div>
 </section>
+
 <main class="phone" id="phone"><div class="screen">
- <div class="dynamic"></div><div class="status"><span id="statusTime">9:41</span><span>●●● ▰</span></div>
- <section class="view lock active" id="lock"><div class="lockdate" id="date"></div><div class="locktime" id="clock"></div><div class="lockmessage" id="lockmsg"></div><div class="lockbottom"><div class="quick"><button onclick="toast('손전등')">⌁</button><button onclick="toast('카메라')">◎</button></div><div class="swipe">위로 쓸어올려 잠금 해제</div></div></section>
- <section class="view pass" id="pass"><h2 id="passTitle">암호 입력</h2><p>iPhone을 잠금 해제하려면 암호를 입력하세요.</p><div class="dots" id="dots"></div><div class="keypad" id="keys"></div><div class="passfoot"><span>긴급통화</span><button class="linkbtn" onclick="erase()">지우기</button></div></section>
- <section class="view home" id="home"><div class="greeting" id="greeting"></div><div class="apps">
- <button class="app" onclick="openApp('kakao')"><span class="appicon kakao">●</span>카카오톡</button>
- <button class="app" onclick="openApp('photos')"><span class="appicon photos">🌈</span>사진</button>
- <button class="app" onclick="openApp('messages')"><span class="appicon messages">●</span>메시지</button>
- <button class="app" onclick="openApp('calls')"><span class="appicon phoneapp">☎</span>전화</button>
- <button class="app" onclick="openApp('notes')"><span class="appicon notes">📝</span>메모</button>
- <button class="app" onclick="openEditor()"><span class="appicon settings">⚙</span>캐릭터 설정</button></div>
- <div class="dock"><button class="app" onclick="openApp('calls')"><span class="appicon phoneapp">☎</span></button><button class="app" onclick="openApp('messages')"><span class="appicon messages">●</span></button><button class="app" onclick="openApp('kakao')"><span class="appicon kakao">●</span></button><button class="app" onclick="openApp('photos')"><span class="appicon photos">🌈</span></button></div></section>
- <section class="view appview" id="appview"><div class="appbar"><button class="back" onclick="home()">‹ 홈</button><span class="apptitle" id="appTitle"></span></div><div class="content" id="content"></div></section>
- <section class="editor" id="editor"><h3>캐릭터 데이터 편집</h3><p>대화 상대와 대화 내용을 줄 단위로 바꿀 수 있어요. 한 줄에 `상대|메시지`, `나|메시지` 형식으로 입력하세요.</p><label>카카오톡 대화 (이가은 방)</label><textarea id="chatEdit"></textarea><label>사진첩 설명</label><input id="photoEdit" placeholder="예: 둘이 함께 갔던 바다 사진">
- <button class="primary" onclick="saveEditor()">저장하기</button><button class="primary" style="background:#eee;color:#222;margin-top:8px" onclick="closeEditor()">닫기</button></section>
- <div class="toast" id="toast"></div><div class="homebar" onclick="home()"></div>
+ <div class="dynamic"><div class="dynamic-cam"></div></div>
+ <div class="status"><span id="statusTime">12:00</span><span>5G 🔋</span></div>
+
+ <section class="view lock active" id="lock">
+   <div class="lockdate" id="date">10월 31일 토요일</div>
+   <div class="locktime" id="clock">12:00</div>
+   <div class="lockmessage">박여주 ❤️</div>
+   <div class="lockbottom">
+     <div class="quick"><button onclick="toast('손전등')">🔦</button><button onclick="toast('카메라')">📷</button></div>
+     <div class="swipe">위로 쓸어올려 잠금 해제</div>
+   </div>
+ </section>
+
+ <section class="view pass" id="pass">
+   <h2>양정원님의 iPhone</h2>
+   <p>암호(0209)를 입력하세요.</p>
+   <div class="dots" id="dots"></div>
+   <div class="keypad" id="keys"></div>
+   <div class="passfoot"><span>긴급통화</span><button class="linkbtn" style="border:0;background:none;color:#007aff;" onclick="erase()">지우기</button></div>
+ </section>
+
+ <section class="view home" id="home">
+   <div class="greeting">양정원의 iPhone</div>
+   <div class="apps">
+     <button class="app" onclick="openApp('kakao')"><span class="appicon icon-kakao">TALK</span>카카오톡</button>
+     <button class="app" onclick="openApp('instagram')"><span class="appicon icon-insta">📸</span>인스타그램</button>
+     <button class="app" onclick="openApp('calls')"><span class="appicon icon-phone">📞</span>전화</button>
+     <button class="app" onclick="openApp('messages')"><span class="appicon icon-messages">💬</span>메시지</button>
+     <button class="app" onclick="openApp('notes')"><span class="appicon icon-notes">📝</span>메모장</button>
+   </div>
+   <div class="dock">
+     <button class="app" onclick="openApp('calls')"><span class="appicon icon-phone">📞</span></button>
+     <button class="app" onclick="openApp('kakao')"><span class="appicon icon-kakao">TALK</span></button>
+     <button class="app" onclick="openApp('instagram')"><span class="appicon icon-insta">📸</span></button>
+     <button class="app" onclick="openApp('messages')"><span class="appicon icon-messages">💬</span></button>
+   </div>
+ </section>
+
+ <section class="view appview" id="appview">
+   <div class="appbar">
+     <button class="back" onclick="home()">‹ 홈</button>
+     <span class="apptitle" id="appTitle">앱</span>
+   </div>
+   <div class="content" id="content"></div>
+ </section>
+
+ <div class="toast" id="toast"></div>
+ <div class="homebar" onclick="home()"></div>
 </div></main>
+
 <script>
-let person='',secret='1234',entered='',wallpaper='',chatLines=[['상대','아직 안 자?'],['나','응. 무슨 일이야?'],['상대','그냥 네 생각나서.'],['나','갑자기?'],['상대','보고 싶다고 하면 믿을래?']],photoCaption='최근 항목 · 사진을 눌러보세요.';
+let person='양정원', secret='0209', entered='';
+
+let jongseongChat = [
+    {sender: '박종성', text: '여주랑 헤어졌어? 여주 다른 애랑 밥 같이 먹던데'}
+];
+
+let sunwooChat = [
+    {sender: '김선우', text: '너 여자애들이랑 술 마셔도 돼? 여주가 뭐라 안하고?'},
+    {sender: '나', text: '괜찮아요. 여주 누나 착해서 ㅋㅋ'},
+    {sender: '김선우', text: '헐..'}
+];
+
 const $=id=>document.getElementById(id);
-function begin(){let n=$('name').value.trim(),c=$('code').value.trim();if(!n){alert('캐릭터 이름을 입력해 주세요.');return}if(!/^\d{4,6}$/.test(c)){alert('암호는 숫자 4~6자리로 입력해 주세요.');return}person=n;secret=c;wallpaper=$('wall').value.trim()||n+'의 iPhone';$('setup').style.display='none';$('phone').style.display='block';$('lockmsg').textContent=wallpaper;$('greeting').textContent=person+'의 iPhone';$('passTitle').textContent=person+'님의 iPhone 암호';dateTime();show('lock')}
-function show(id){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));$(id).classList.add('active')}
-function dateTime(){let d=new Date(),t=d.getHours()+':'+String(d.getMinutes()).padStart(2,'0');$('clock').textContent=t;$('statusTime').textContent=t;$('date').textContent=(d.getMonth()+1)+'월 '+d.getDate()+'일 '+['일요일','월요일','화요일','수요일','목요일','금요일','토요일'][d.getDay()]}
-setInterval(dateTime,30000);dateTime();
-let startY=0;$('lock').addEventListener('touchstart',e=>startY=e.touches[0].clientY);$('lock').addEventListener('touchend',e=>{if(startY-e.changedTouches[0].clientY>30)unlock()});$('lock').addEventListener('click',unlock);
-function unlock(){entered='';drawDots();show('pass')}
-function drawDots(){let d=$('dots');d.innerHTML='';for(let i=0;i<secret.length;i++){let x=document.createElement('i');x.className='dot'+(i<entered.length?' on':'');d.append(x)}}
-function erase(){entered='';drawDots()}
-function key(k){if(k==='del'){entered=entered.slice(0,-1);drawDots();return}if(entered.length>=secret.length)return;entered+=k;drawDots();if(entered.length===secret.length){if(entered===secret)setTimeout(()=>show('home'),170);else setTimeout(()=>{alert('암호가 올바르지 않습니다. 다시 입력해 주세요.');erase()},120)}}
-(function(){['1','2','3','4','5','6','7','8','9','','0','del'].forEach(k=>{let b=document.createElement('button');b.className='key'+(!k?' empty':'');b.textContent=k==='del'?'⌫':k;if(k)b.onclick=()=>key(k);$('keys').append(b)})})();
-function home(){show('home')}
-function toast(s){let t=$('toast');t.textContent=s;t.style.display='block';setTimeout(()=>t.style.display='none',1300)}
-function row(icon,name,msg,time,fn){return `<button class="chatrow" onclick="${fn}"><span class="avatar">${icon}</span><span class="chatmeta"><b>${name}</b><span>${msg}</span></span><span class="time">${time}</span></button>`}
-function openApp(which){show('appview');let title='',body='';
-if(which==='kakao'||which==='messages'){title=which==='kakao'?'카카오톡':'메시지';body=`<div class="rows">${row('👤','이가은','마지막 메시지: '+chatLines[chatLines.length-1][1],'오후 9:41',`openChat('이가은')`)}${row('🧑','김민수','내일 몇 시에 볼까?','오후 8:12',`openChat('김민수')`)}${row('👥','가족','집에 들어왔니','오후 6:30',`openChat('가족')`)}</div>`}
-if(which==='photos'){title='사진';body=`<div class="gallery">${['🌅','🌃','☕','🌊','🐈','🌸','🏙️','🎧','🍰','📷','🌙','🧸'].map((v,i)=>`<button class="tile" onclick="photo(${i},'${v}')">${v}</button>`).join('')}</div><div class="caption" id="photoCaption">${photoCaption}</div>`}
-if(which==='calls'){title='최근 통화';body=`<div class="callrow"><span>👤　이가은</span><span>발신 통화 · 3분 12초</span></div><div class="callrow"><span>🧑　김민수</span><span style="color:#d44">부재중 전화</span></div><div class="callrow"><span>👥　가족</span><span>수신 통화 · 1분 08초</span></div>`}
-if(which==='notes'){title='메모';body=`<div class="note"><h3>${person}의 메모</h3><p>잊지 말 것.</p><p>• 내일 약속 확인하기<br>• 선물 준비하기<br>• 가은이에게 연락하기</p><p style="color:#999;font-size:12px">나만 보기</p></div>`}
-$('appTitle').textContent=title;$('content').innerHTML=body}
-function openChat(name){$('appTitle').textContent=name;$('content').innerHTML=`<div class="chatroom"><div class="chatroomtop">${name}</div><div class="bubbles"><div class="day">오늘</div>${(name==='이가은'?chatLines:[['상대','안녕!'],['나','응, 무슨 일이야?'],['상대','내일 보자.']]).map(x=>`<div class="bubble ${x[0]==='나'?'me':''}">${escapeHtml(x[1])}</div>`).join('')}</div><div class="composer"></div></div>`}
-function photo(i,emoji){$('appTitle').textContent='사진';$('content').innerHTML=`<div style="height:100%;background:#171717;color:white;display:grid;place-items:center;text-align:center"><div><div style="font-size:115px">${emoji}</div><p style="color:#ddd">사진 ${i+1}</p><p style="color:#aaa;font-size:12px">${escapeHtml(photoCaption)}</p><button onclick="openApp('photos')" style="border:0;border-radius:18px;padding:9px 18px">뒤로</button></div></div>`}
+
+function begin(){
+    $('setup').style.display='none';
+    $('phone').style.display='block';
+    dateTime();
+    show('lock');
+}
+
+function show(id){
+    document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+    $(id).classList.add('active');
+}
+
+function dateTime(){
+    let d=new Date(), t=d.getHours()+':'+String(d.getMinutes()).padStart(2,'0');
+    $('clock').textContent=t;
+    $('statusTime').textContent=t;
+    $('date').textContent=(d.getMonth()+1)+'월 '+d.getDate()+'일 '+['일요일','월요일','화요일','수요일','목요일','금요일','토요일'][d.getDay()];
+}
+setInterval(dateTime, 30000); dateTime();
+
+let startY=0;
+$('lock').addEventListener('touchstart',e=>startY=e.touches[0].clientY);
+$('lock').addEventListener('touchend',e=>{if(startY-e.changedTouches[0].clientY>30)unlock()});
+$('lock').addEventListener('click',unlock);
+
+function unlock(){entered=''; drawDots(); show('pass');}
+function drawDots(){
+    let d=$('dots'); d.innerHTML='';
+    for(let i=0;i<secret.length;i++){
+        let x=document.createElement('i');
+        x.className='dot'+(i<entered.length?' on':'');
+        d.append(x);
+    }
+}
+function erase(){entered=''; drawDots();}
+function key(k){
+    if(k==='del'){entered=entered.slice(0,-1); drawDots(); return;}
+    if(entered.length>=secret.length) return;
+    entered+=k; drawDots();
+    if(entered.length===secret.length){
+        if(entered===secret) setTimeout(()=>show('home'), 150);
+        else setTimeout(()=>{alert('암호가 올바르지 않습니다. (0209)'); erase();}, 100);
+    }
+}
+
+(function(){
+    ['1','2','3','4','5','6','7','8','9','','0','del'].forEach(k=>{
+        let b=document.createElement('button');
+        b.className='key'+(!k?' empty':'');
+        b.textContent=k==='del'?'⌫':k;
+        if(k) b.onclick=()=>key(k);
+        $('keys').append(b);
+    });
+})();
+
+function home(){show('home');}
+function toast(s){
+    let t=$('toast'); t.textContent=s; t.style.display='block';
+    setTimeout(()=>t.style.display='none', 1300);
+}
+
+function openApp(which){
+    show('appview');
+    let title='', body='';
+
+    if(which==='kakao'){
+        title='카카오톡';
+        let lastJongseong = jongseongChat[jongseongChat.length-1].text;
+        let lastSunwoo = sunwooChat[sunwooChat.length-1].text;
+        body=`<div class="rows">
+            <button class="chatrow" onclick="openChat('박종성')">
+                <span class="avatar">🦅</span>
+                <span class="chatmeta"><b>박종성 선배</b><span>${lastJongseong}</span></span>
+                <span class="time">방금</span>
+            </button>
+            <button class="chatrow" onclick="openChat('김선우')">
+                <span class="avatar">🦊</span>
+                <span class="chatmeta"><b>김선우</b><span>${lastSunwoo}</span></span>
+                <span class="time">오후 2:15</span>
+            </button>
+            <button class="chatrow" onclick="openChat('박여주')">
+                <span class="avatar">❤️</span>
+                <span class="chatmeta"><b>박여주</b><span>우리 헤어져.</span></span>
+                <span class="time">어제</span>
+            </button>
+        </div>`;
+    }
+
+    if(which==='instagram'){
+        title='Instagram';
+        body=`
+            <div class="insta-profile">
+                <div class="insta-head">
+                    <div class="insta-pfp">
+                      <img src="https://i.postimg.cc/85zC6X1L/image-4.png" alt="pfp" onerror="this.src='https://i.postimg.cc/prgQd8jS/image-6.png'">
+                    </div>
+                    <div class="insta-counts">
+                        <div><b>3</b><span>게시물</span></div>
+                        <div><b>210</b><span>팔로워</span></div>
+                        <div><b>3</b><span>팔로잉</span></div>
+                    </div>
+                </div>
+                <div class="insta-bio">
+                    <b>양정원</b><br>
+                    21 | 대학교 과대 🐱<br>
+                    <span style="color:#8e8e93; font-size:12px;">팔로잉: 박여주, 김선우, 박종성</span>
+                </div>
+                <div class="insta-tabs">
+                    <div class="insta-tab">▦</div>
+                </div>
+                <div class="insta-grid">
+                    <div class="insta-post" onclick="viewPhoto(1)"><img src="https://i.postimg.cc/85zC6X1L/image-4.png" alt="photo1"></div>
+                    <div class="insta-post" onclick="viewPhoto(2)"><img src="https://i.postimg.cc/P5pM1W2y/image-5.png" alt="photo2"></div>
+                    <div class="insta-post" onclick="viewPhoto(3)"><img src="https://i.postimg.cc/prgQd8jS/image-6.png" alt="photo3"></div>
+                </div>
+            </div>
+        `;
+    }
+
+    if(which==='calls'){
+        title='최근 통화';
+        body=`
+            <div class="callrow">
+                <div><div class="name missed">❤️ 박여주</div><div class="sub">휴대폰</div></div>
+                <div class="tag missed">수신 취소 (3)</div>
+            </div>
+            <div class="callrow">
+                <div><div class="name missed">❤️ 박여주</div><div class="sub">휴대폰</div></div>
+                <div class="tag missed">부재중 전화</div>
+            </div>
+            <div class="callrow">
+                <div><div class="name">🦅 박종성 선배</div><div class="sub">휴대폰</div></div>
+                <div class="tag">발신 통화 · 2분</div>
+            </div>
+            <div class="callrow">
+                <div><div class="name">🦊 김선우</div><div class="sub">휴대폰</div></div>
+                <div class="tag">수신 통화 · 5분</div>
+            </div>
+        `;
+    }
+
+    if(which==='messages'){
+        title='메시지';
+        body=`
+            <div class="rows">
+                <button class="chatrow" onclick="toast('알림: 단체 문자 메세지입니다.')">
+                    <span class="avatar">📢</span>
+                    <span class="chatmeta"><b>[과대 공지] 2학년 학과 총회</b><span>내일 오후 6시 정문 앞 연수 갈비...</span></span>
+                    <span class="time">오전 10:30</span>
+                </button>
+            </div>
+        `;
+    }
+
+    if(which==='notes'){
+        title='메모';
+        body=`<div style="padding:20px; line-height:1.7;">
+            <h3>과대 공지사항 체크</h3>
+            <p>• 학과 총회 장소 예약 확인하기<br>• 선우랑 교양 과제 자료 조사하기<br>• 여주 누나한테 연락...</p>
+        </div>`;
+    }
+
+    $('appTitle').textContent=title;
+    $('content').innerHTML=body;
+}
+
+function openChat(name){
+    $('appTitle').textContent=name;
+    renderChat(name);
+}
+
+function renderChat(name){
+    let chatData = [];
+    if(name === '박종성') chatData = jongseongChat;
+    else if(name === '김선우') chatData = sunwooChat;
+    
+    if(name === '박종성' || name === '김선우'){
+        let bubblesHtml = chatData.map(c => 
+            `<div class="bubble ${c.sender === '나' ? 'me' : ''}">${escapeHtml(c.text)}</div>`
+        ).join('');
+        
+        $('content').innerHTML = `
+            <div class="chatroom">
+                <div class="chatroomtop">${name}</div>
+                <div class="bubbles" id="chatBubbles">${bubblesHtml}</div>
+                <div class="composer">
+                    <input type="text" id="msgInput" placeholder="메시지 입력..." onkeypress="if(event.key==='Enter') sendMsg('${name}')">
+                    <button onclick="sendMsg('${name}')">전송</button>
+                </div>
+            </div>
+        `;
+        let b = $('chatBubbles'); b.scrollTop = b.scrollHeight;
+    } else if(name === '박여주'){
+        $('content').innerHTML = `
+            <div class="chatroom">
+                <div class="chatroomtop">${name}</div>
+                <div class="bubbles">
+                    <div class="bubble">우리 헤어져.</div>
+                    <div class="bubble me">여주야 잠시만 내 말 좀 들어줘</div>
+                    <div class="bubble me">전화 좀 받아주라 제발</div>
+                </div>
+                <div class="composer"><input type="text" placeholder="전송할 수 없습니다." disabled></div>
+            </div>
+        `;
+    }
+}
+
+function sendMsg(name){
+    let input = $('msgInput');
+    if(!input || !input.value.trim()) return;
+    let text = input.value.trim();
+    
+    if(name === '박종성'){
+        jongseongChat.push({sender: '나', text: text});
+        renderChat('박종성');
+        if(text.replaceAll(' ', '') === '아니요그냥싸웠어요'){
+            setTimeout(() => {
+                jongseongChat.push({sender: '박종성', text: '아 그렇지?ㅋㅋㅋ 싸우지 마라'});
+                renderChat('박종성');
+            }, 1000);
+        }
+    } else if(name === '김선우'){
+        sunwooChat.push({sender: '나', text: text});
+        renderChat('김선우');
+    }
+}
+
+function viewPhoto(num){
+    const imgs = [
+      "https://i.postimg.cc/85zC6X1L/image-4.png",
+      "https://i.postimg.cc/P5pM1W2y/image-5.png",
+      "https://i.postimg.cc/prgQd8jS/image-6.png"
+    ];
+    $('appTitle').textContent='게시물';
+    $('content').innerHTML=`
+        <div style="padding:15px; background:#fff;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+                <img src="${imgs[0]}" style="width:32px;height:32px;border-radius:50%;object-fit:cover;">
+                <b>양정원</b>
+            </div>
+            <div style="width:100%; border-radius:12px; overflow:hidden; border:1px solid #eee;">
+                <img src="${imgs[num-1]}" style="width:100%; display:block; object-fit:cover;">
+            </div>
+            <p style="font-size:14px; margin-top:12px; line-height:1.4;"><b>양정원</b> 정원이의 일상 🐱</p>
+            <button onclick="openApp('instagram')" style="border:0; background:#eee; padding:8px 16px; border-radius:12px; margin-top:10px; font-weight:600;">← 돌아가기</button>
+        </div>
+    `;
+}
+
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function openEditor(){$('chatEdit').value=chatLines.map(x=>x.join('|')).join('\n');$('photoEdit').value=photoCaption;$('editor').style.display='block'}
-function closeEditor(){$('editor').style.display='none'}
-function saveEditor(){let lines=$('chatEdit').value.split('\n').map(s=>s.split('|')).filter(x=>x.length>=2).map(x=>[x[0].trim(),x.slice(1).join('|').trim()]).filter(x=>x[1]);if(!lines.length){alert('대화를 한 줄 이상 입력해 주세요.');return}chatLines=lines;photoCaption=$('photoEdit').value.trim()||'최근 항목';closeEditor();toast('캐릭터 데이터가 저장됐어요.')}
 </script>
-</body></html>
+</body>
+</html>
